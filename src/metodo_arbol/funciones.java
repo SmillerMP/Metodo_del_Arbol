@@ -22,10 +22,6 @@ public class funciones {
     
   
     public static void crearHoja(nodos dato) {
-        File archivo = new File("./Reportes/arbol.dot");
-        FileWriter Escribir;
-        PrintWriter NuevaLinea;
-        
         dato.setNivel(0);
         
         if (dato.getValor().equals("E")) {
@@ -38,31 +34,16 @@ public class funciones {
             numeroHoja ++;
         }  
         
-                
-        try {
-            archivo.createNewFile();
-            Escribir = new FileWriter(archivo, true);
-
-            NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("    \"" + dato + "\" [label=\"First Post \\n" + dato.getFirstPost()+ " | Nodo: " +
-                    dato.getValor() + " \\n Anulable: " + dato.getAnulable() + "| Last Post \\n " + dato.getLastPost() + "\", fontsize=11]");
-
-            Escribir.close();
-            
-            sameRank += "\"" + dato + "\"; ";
-           
-        } catch (Exception e) {
-        }  
         
-          
+        
+        escribirDotArbol("    \"" + dato + "\" [label=\"First Post \\n" + dato.getFirstPost()+ " | Nodo: " +
+                dato.getValor() + " \\n Anulable: " + dato.getAnulable() + "| Last Post \\n " + dato.getLastPost() + "\", fontsize=11]");
+        sameRank += "\"" + dato + "\"; ";
+           
     }
     
 
     public static void crearUnion(nodos nodoFinal, Object dato1, Object dato2) {
-        File archivo = new File("./Reportes/arbol.dot");
-        FileWriter Escribir;
-        PrintWriter NuevaLinea;
-        
         nodos datoN1 = ((nodos) dato1);
         nodos datoN2 = ((nodos) dato2);
         
@@ -139,31 +120,15 @@ public class funciones {
         
         //--------------------------------------------------------------------------------
         
-        try {
-            archivo.createNewFile();
-            Escribir = new FileWriter(archivo, true);
-
-            NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
-                    nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
-            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
-            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN2 + "\"");
-
-            Escribir.close();
-            //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
-        }  
-        
-        
+        escribirDotArbol("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
+                nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
+        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
+        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN2 + "\"");
                    
-                
     }
     
     public static void conectarNodo(nodos nodoFinal, Object dato1) {
-        File archivo = new File("./Reportes/arbol.dot");
-        FileWriter Escribir;
-        PrintWriter NuevaLinea;
-        
+
         nodos datoN1 = ((nodos) dato1);
         
         //------------------------------------------------------------------------------------------------
@@ -195,24 +160,30 @@ public class funciones {
             ultimoNodo.setLastPost(last);
         }
         //--------------------------------------------------------------------------------------------------
+            
+        escribirDotArbol("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
+                nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
+        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
+
+                 
+    }
+    
+    
+    // FUNCION PARA ESCRIBIR EN EL ARCHIVO .DOR DEL ARBOL
+    public static void escribirDotArbol(String linea) {
         
+        File archivo = new File("./Reportes/arbol.dot");
+        FileWriter Escribir;
+        PrintWriter NuevaLinea;
         
         try {
             archivo.createNewFile();
             Escribir = new FileWriter(archivo, true);
-
             NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
-                    nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
-            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
-
+            NuevaLinea.println(linea);
             Escribir.close();
-            //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-        }  
-        
-       
-                
+        }    
     }
     
 }
