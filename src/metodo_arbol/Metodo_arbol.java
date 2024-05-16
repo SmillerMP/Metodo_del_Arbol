@@ -10,11 +10,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import Clases.nodos;
-
  
 
 /**
@@ -22,10 +20,6 @@ import Clases.nodos;
  * @author samuel
  */
 public class Metodo_arbol {
-    
-    public static ArrayList<nodos>[] listaNiveles = new ArrayList[15];
-        
-        
 
     /**
      * @param args the command line arguments
@@ -33,9 +27,6 @@ public class Metodo_arbol {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        for (int i= 0; i < listaNiveles.length; i++){
-            listaNiveles[i] = new ArrayList<>();
-        }
         
         File carpeta = new File("./Reportes");
         if (!carpeta.exists()) {
@@ -89,24 +80,16 @@ public class Metodo_arbol {
 
             NuevaLinea = new PrintWriter(Escribir);
             
-            NuevaLinea.print("\n");
+            nodos nodoFinal = new nodos("Concatenación", ".");
+            nodos nodoAceptacion = new nodos("Aceptacion", "#");
             
-            String sameRank = "";
-            for (int i = 0; i < listaNiveles.length; i++){
-                if (!listaNiveles[i].isEmpty()) {
-                    for(int j = 0; j < listaNiveles[i].size(); j++){
-                        sameRank += "\"" + listaNiveles[i].get(j)  + "\"; ";
-                    }
-                    NuevaLinea.println("{ rank = same; " + sameRank + " }");
-                    sameRank = "";
-                    
-                } else {
-                    break;
-                }
-                
-            }
+            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"" + nodoFinal.getValor() +"\", fontsize=15]");
+            NuevaLinea.println("    \"" + nodoAceptacion + "\" [label=\"" + nodoAceptacion.getValor() +"\", fontsize=15]");
+            NuevaLinea.println(    "\"" + nodoFinal + "\" -> \"" + funciones.ultimoNodo + "\"");
+            NuevaLinea.println(    "\"" + nodoFinal + "\" -> \"" + nodoAceptacion + "\"");
             
-            
+            NuevaLinea.println("");
+            NuevaLinea.println("{ rank = same; " + funciones.sameRank + " }");
             NuevaLinea.println("}");
 
             Escribir.close();
@@ -124,10 +107,6 @@ public class Metodo_arbol {
             Process proceso = processBuilder.start();
             int exitCode = proceso.waitFor();       
         } catch (IOException | InterruptedException e) {
-        }
-        
-        for (int i = 0; i < listaNiveles.length; i++){
-            System.out.println("Nivel " + i + " --> " + listaNiveles[i]);
         }
         
         

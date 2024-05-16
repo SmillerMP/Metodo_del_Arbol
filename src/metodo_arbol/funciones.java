@@ -16,6 +16,8 @@ import java.util.ArrayList;
 public class funciones {
     
     public static String sameRank = "";
+    public static nodos ultimoNodo;
+    public static int numeroHoja = 1;
     
   
     public static void crearHoja(nodos dato) {
@@ -38,8 +40,10 @@ public class funciones {
         }  
         
         dato.setNivel(0);
-        Metodo_arbol.listaNiveles[0].add(dato);
-        
+        dato.setAnulable(false);
+        dato.setFirstPost(numeroHoja);
+        numeroHoja ++;
+
                 
     }
     
@@ -72,8 +76,19 @@ public class funciones {
             nodoFinal.setNivel(datoN2.getNivel() + 1);
         }
         
-        Metodo_arbol.listaNiveles[nodoFinal.getNivel()].add(nodoFinal);
+        ultimoNodo = nodoFinal;
+        
+        if (ultimoNodo.getValor().equals("|")) {
+            if (datoN1.getAnulable() == true || datoN2.getAnulable() == true){
+                ultimoNodo.setAnulable(true);
+            }
             
+        } else if (ultimoNodo.getValor().equals("*")) {
+            if (datoN1.getAnulable() == true && datoN2.getAnulable() == true){
+                ultimoNodo.setAnulable(true);
+            }
+        }
+                   
                 
     }
     
@@ -98,7 +113,17 @@ public class funciones {
         }  
         
         nodoFinal.setNivel(datoN1.getNivel() + 1);
-        Metodo_arbol.listaNiveles[datoN1.getNivel() + 1].add(nodoFinal);
+        ultimoNodo = nodoFinal;
+        
+        
+        if (ultimoNodo.getValor().equals("*") || ultimoNodo.getValor().equals("?")) {
+            ultimoNodo.setAnulable(true);
+            
+        } else if (ultimoNodo.getValor().equals("+")) {
+            if (datoN1.getAnulable() == true){
+                ultimoNodo.setAnulable(true);
+            }
+        }
                 
     }
     

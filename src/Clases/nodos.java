@@ -15,6 +15,7 @@ public class nodos {
     int nivel;
     ArrayList<Integer> firstPost;
     ArrayList<Integer> lastPost;
+    boolean anulable;
 
     public nodos(String tipo, String valor) {
         this.tipo = tipo;
@@ -22,6 +23,7 @@ public class nodos {
         this.nivel = 0;
         this.firstPost = new ArrayList<>();
         this.lastPost = new ArrayList<>();
+        this.anulable = false;
     }
 
     public String getTipo() {
@@ -36,7 +38,10 @@ public class nodos {
         return nivel;
     }
     
-    
+    public boolean getAnulable() {
+        return anulable;
+    }
+   
     
     
     // Metodos sets
@@ -52,12 +57,11 @@ public class nodos {
     public void setLastPost(int valor) {
         this.firstPost.add(valor);
     }
-    
-    
-    
-    
-    
-    
+
+    public void setAnulable(boolean anulable) {
+        this.anulable = anulable;
+    }
+
     
     
 }
