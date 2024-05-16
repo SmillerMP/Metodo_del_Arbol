@@ -45,23 +45,29 @@ terminal String MAS;
 terminal String INTERROGACION;
 terminal String PUNTO;
 terminal String ALTER;
+terminal String ACEPTACION;
 
 
 // No terminales
 non terminal ini;
 non terminal union;
 non terminal hoja;
+non terminal gramatica;
 
 precedence left ALTER;
 precedence left PUNTO;
 precedence left ASTERISCO;
 
+
 start with ini; 
 
-ini::= union;
+ini::= 
+    PAR_IZQ union:valor1 PAR_DER PUNTO hoja:valor2     {:nodos temp = new nodos("Concatenación", "."); funciones.crearUnion(temp, valor1, valor2);:}
+;
 
 hoja::=
-    ID:val   {:nodos temp = new nodos("hoja", val); RESULT=temp; funciones.crearHoja(temp);:}
+    ID:val              {:nodos temp = new nodos("hoja", val); RESULT=temp; funciones.crearHoja(temp);:}
+    | ACEPTACION:val    {:nodos temp = new nodos("hoja", val); RESULT=temp; funciones.crearHoja(temp);:}
 ;
 
 union::=

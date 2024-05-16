@@ -41,6 +41,7 @@ STRING = \"(([^\"\\]?|\\.)*)\"
 "?"         { return new Symbol(sym.INTERROGACION, yyline, yychar, yytext()); }
 "."         { return new Symbol(sym.PUNTO, yyline, yychar, yytext()); }
 "|"         { return new Symbol(sym.ALTER, yyline, yychar, yytext()); }
+"#"         { return new Symbol(sym.ACEPTACION, yyline, yychar, yytext()); }
               
                                    
                                               

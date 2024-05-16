@@ -10,6 +10,7 @@ public class sym {
   /* terminals */
   public static final int ASTERISCO = 5;
   public static final int PUNTO = 8;
+  public static final int ACEPTACION = 10;
   public static final int ALTER = 9;
   public static final int PAR_IZQ = 3;
   public static final int EOF = 0;
@@ -28,7 +29,8 @@ public class sym {
   "MAS",
   "INTERROGACION",
   "PUNTO",
-  "ALTER"
+  "ALTER",
+  "ACEPTACION"
   };
 }
 

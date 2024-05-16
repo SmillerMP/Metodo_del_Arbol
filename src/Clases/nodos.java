@@ -41,6 +41,16 @@ public class nodos {
     public boolean getAnulable() {
         return anulable;
     }
+
+    public ArrayList<Integer> getFirstPost() {
+        return firstPost;
+    }
+
+    public ArrayList<Integer> getLastPost() {
+        return lastPost;
+    }
+    
+    
    
     
     
@@ -55,7 +65,7 @@ public class nodos {
     }
 
     public void setLastPost(int valor) {
-        this.firstPost.add(valor);
+        this.lastPost.add(valor);
     }
 
     public void setAnulable(boolean anulable) {

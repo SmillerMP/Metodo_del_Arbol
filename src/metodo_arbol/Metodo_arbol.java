@@ -49,7 +49,7 @@ public class Metodo_arbol {
                 NuevaLinea.println("digraph Gramatica{ \n"
                     + "    rankdir = TB\n"
                     + "    splines = line\n"
-                    + "    node[shape=circle, fontname=\"Arial\", fontsize=15]\n");
+                    + "    node[shape=record, fontname=\"Arial\", fontsize=15]\n");
 
                 Escribir.close();
             } catch (Exception e) {
@@ -57,7 +57,9 @@ public class Metodo_arbol {
         }
         
         
-        String textoAnalizar = "(a|b.c|c.d).(a|b.c.r|c.d)*.(h|E)";
+        String textoBase = "(a|b.c|c.d).(a|b.c|c.d)*.(h|E)";
+        
+        String textoAnalizar = "(" + textoBase + ").#";
 
         Analizadores.Sintactico parser;
         try {
@@ -79,14 +81,6 @@ public class Metodo_arbol {
             Escribir = new FileWriter(archivo, true);
 
             NuevaLinea = new PrintWriter(Escribir);
-            
-            nodos nodoFinal = new nodos("Concatenación", ".");
-            nodos nodoAceptacion = new nodos("Aceptacion", "#");
-            
-            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"" + nodoFinal.getValor() +"\", fontsize=15]");
-            NuevaLinea.println("    \"" + nodoAceptacion + "\" [label=\"" + nodoAceptacion.getValor() +"\", fontsize=15]");
-            NuevaLinea.println(    "\"" + nodoFinal + "\" -> \"" + funciones.ultimoNodo + "\"");
-            NuevaLinea.println(    "\"" + nodoFinal + "\" -> \"" + nodoAceptacion + "\"");
             
             NuevaLinea.println("");
             NuevaLinea.println("{ rank = same; " + funciones.sameRank + " }");
