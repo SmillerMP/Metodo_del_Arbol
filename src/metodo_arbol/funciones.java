@@ -166,6 +166,7 @@ public class funciones {
         
         nodos datoN1 = ((nodos) dato1);
         
+        //------------------------------------------------------------------------------------------------
         // MANEJO DE NIVELS, ANULABILIDAD Y POSTS
         nodoFinal.setNivel(datoN1.getNivel() + 1);
         ultimoNodo = nodoFinal;
@@ -193,6 +194,7 @@ public class funciones {
         for ( int last: datoN1.getLastPost()){
             ultimoNodo.setLastPost(last);
         }
+        //--------------------------------------------------------------------------------------------------
         
         
         try {
@@ -209,8 +211,7 @@ public class funciones {
         } catch (Exception e) {
         }  
         
-        
-
+       
                 
     }
     
