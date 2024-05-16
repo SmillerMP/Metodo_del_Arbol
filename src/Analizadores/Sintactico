@@ -1,0 +1,83 @@
+package Analizadores; 
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import Clases.nodos;
+import metodo_arbol.funciones;
+
+
+
+parser code 
+{:
+    /**
+     * Método al que se llama automáticamente ante algún error sintactico.
+     **/ 
+
+
+    // Guarda el error Sintactico
+    public void syntax_error(Symbol s){ 
+        System.out.println("Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+    } 
+
+
+    /**
+     * Método al que se llama automáticamente ante algún error sintáctico 
+     * en el que ya no es posible una recuperación de errores.
+     **/ 
+    // Reporta error sintactico inrecuperable
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
+        System.out.println("Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido."); 
+    }  
+    
+
+:} 
+
+// Expresiones regulares
+terminal String ID;
+
+
+// Simbolos
+terminal String PAR_IZQ;
+terminal String PAR_DER;
+terminal String ASTERISCO;
+terminal String MAS;
+terminal String INTERROGACION;
+terminal String PUNTO;
+terminal String ALTER;
+
+
+// No terminales
+non terminal ini;
+non terminal gramatica;
+non terminal union;
+non terminal hoja;
+
+precedence left ALTER;
+precedence left ASTERISCO;
+precedence left PUNTO;
+
+start with ini; 
+
+ini::= gramatica;
+
+gramatica::=
+    PAR_IZQ union PAR_DER
+
+;
+
+hoja::=
+    ID:val   {:nodos temp = new nodos("hoja", val, null); RESULT=temp; funciones.crearHoja(temp);:}
+;
+
+union::=
+    union:valor1 ALTER union:valor2             {:nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); :}
+    | union:valor1 PUNTO union:valor2           {:nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);:}
+    | union:valor1 MAS                          {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    | PAR_IZQ union:valor1 MAS PAR_DER          {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    | union:valor1 INTERROGACION                {:nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}        
+    | union:valor1 ASTERISCO                    {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}   
+    | PAR_IZQ  union:valor1 ASTERISCO PAR_DER   {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    | hoja:val                                  {:RESULT=val;:}
+    | PAR_IZQ hoja:val PAR_DER                  {:RESULT=val;:}
+;
