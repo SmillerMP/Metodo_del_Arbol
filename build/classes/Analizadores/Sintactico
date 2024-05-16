@@ -49,35 +49,41 @@ terminal String ALTER;
 
 // No terminales
 non terminal ini;
-non terminal gramatica;
 non terminal union;
 non terminal hoja;
 
 precedence left ALTER;
-precedence left ASTERISCO;
 precedence left PUNTO;
+precedence left ASTERISCO;
 
 start with ini; 
 
-ini::= gramatica;
-
-gramatica::=
-    PAR_IZQ union PAR_DER
-
-;
+ini::= union;
 
 hoja::=
     ID:val   {:nodos temp = new nodos("hoja", val, null); RESULT=temp; funciones.crearHoja(temp);:}
 ;
 
 union::=
-    union:valor1 ALTER union:valor2             {:nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); :}
-    | union:valor1 PUNTO union:valor2           {:nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);:}
-    | union:valor1 MAS                          {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
-    | PAR_IZQ union:valor1 MAS PAR_DER          {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
-    | union:valor1 INTERROGACION                {:nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}        
-    | union:valor1 ASTERISCO                    {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}   
-    | PAR_IZQ  union:valor1 ASTERISCO PAR_DER   {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
-    | hoja:val                                  {:RESULT=val;:}
-    | PAR_IZQ hoja:val PAR_DER                  {:RESULT=val;:}
+    union:valor1 ALTER union:valor2                     {:nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); :}
+    | PAR_IZQ union:valor1 ALTER union:valor2 PAR_DER   {:nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); :}
+    
+    // Concatenacion
+    | union:valor1 PUNTO union:valor2                   {:nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);:}
+    | PAR_IZQ union:valor1 PUNTO union:valor2 PAR_DER   {:nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);:}
+    
+    // Uno o mas
+    | union:valor1 MAS                                  {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    | PAR_IZQ union:valor1 MAS PAR_DER                  {:nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    
+    // cero o uno
+    | union:valor1 INTERROGACION                        {:nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}        
+    | PAR_IZQ union:valor1 INTERROGACION PAR_DER        {:nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+
+    // Cerradura de kleene
+    | union:valor1 ASTERISCO                            {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:}   
+    | PAR_IZQ  union:valor1 ASTERISCO PAR_DER           {:nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);:} 
+    
+    | hoja:val                                          {:RESULT=val;:}
+    | PAR_IZQ hoja:val PAR_DER                          {:RESULT=val;:}
 ;

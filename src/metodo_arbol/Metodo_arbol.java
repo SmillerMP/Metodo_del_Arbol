@@ -7,8 +7,12 @@ package metodo_arbol;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import javax.swing.JOptionPane;
+
+ 
 
 /**
  *
@@ -43,6 +47,7 @@ public class Metodo_arbol {
                 NuevaLinea = new PrintWriter(Escribir);
                 NuevaLinea.println("digraph Gramatica{ \n"
                     + "    rankdir = TB\n"
+                    + "    splines = lines\n"
                     + "    node[shape=circle, fontname=\"Arial\", fontsize=15]\n");
 
                 Escribir.close();
@@ -51,7 +56,7 @@ public class Metodo_arbol {
         }
         
         
-        String textoAnalizar = "( a.b | b. (a.d*) | c)";
+        String textoAnalizar = "(a|b.c|c.d).(a|b.c|c.d)*.(h|E)";
 
         Analizadores.Sintactico parser;
         try {
@@ -73,6 +78,7 @@ public class Metodo_arbol {
             Escribir = new FileWriter(archivo, true);
 
             NuevaLinea = new PrintWriter(Escribir);
+            NuevaLinea.println("{ rank = same; " + funciones.sameRank + " }");
             NuevaLinea.println("}");
 
             Escribir.close();
@@ -80,6 +86,17 @@ public class Metodo_arbol {
         } catch (Exception e) {
         }    
         
+        
+        String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        processBuilder.command("bash", "-c", comando);
+
+        try {
+            // Inicia el proceso
+            Process proceso = processBuilder.start();
+            int exitCode = proceso.waitFor();       
+        } catch (IOException | InterruptedException e) {
+        }
         
         
         

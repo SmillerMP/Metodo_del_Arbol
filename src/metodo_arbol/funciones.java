@@ -8,17 +8,23 @@ import Clases.nodos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author samuel
  */
 public class funciones {
+    
+    public static ArrayList<nodos> listaNodosHojas = new ArrayList<>();
+    public static String sameRank = "";
+    
   
     public static void crearHoja(nodos dato) {
         File archivo = new File("./Reportes/arbol.dot");
         FileWriter Escribir;
         PrintWriter NuevaLinea;
-        
+                
         try {
             archivo.createNewFile();
             Escribir = new FileWriter(archivo, true);
@@ -27,7 +33,9 @@ public class funciones {
             NuevaLinea.println("    \"" + dato + "\" [label=\"" + dato.getValor() +"\", fontsize=15]");
 
             Escribir.close();
-            //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+            
+            listaNodosHojas.add(dato);
+            sameRank += "\"" + dato + "\"; ";
         } catch (Exception e) {
         }  
                 
