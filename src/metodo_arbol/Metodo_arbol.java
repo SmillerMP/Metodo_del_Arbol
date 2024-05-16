@@ -10,7 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
+import Clases.nodos;
 
  
 
@@ -19,6 +22,10 @@ import javax.swing.JOptionPane;
  * @author samuel
  */
 public class Metodo_arbol {
+    
+    public static ArrayList<nodos>[] listaNiveles = new ArrayList[15];
+        
+        
 
     /**
      * @param args the command line arguments
@@ -26,6 +33,9 @@ public class Metodo_arbol {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        for (int i= 0; i < listaNiveles.length; i++){
+            listaNiveles[i] = new ArrayList<>();
+        }
         
         File carpeta = new File("./Reportes");
         if (!carpeta.exists()) {
@@ -47,7 +57,7 @@ public class Metodo_arbol {
                 NuevaLinea = new PrintWriter(Escribir);
                 NuevaLinea.println("digraph Gramatica{ \n"
                     + "    rankdir = TB\n"
-                    + "    splines = lines\n"
+                    + "    splines = line\n"
                     + "    node[shape=circle, fontname=\"Arial\", fontsize=15]\n");
 
                 Escribir.close();
@@ -56,7 +66,7 @@ public class Metodo_arbol {
         }
         
         
-        String textoAnalizar = "(a|b.c|c.d).(a|b.c|c.d)*.(h|E)";
+        String textoAnalizar = "(a|b.c|c.d).(a|b.c.r|c.d)*.(h|E)";
 
         Analizadores.Sintactico parser;
         try {
@@ -78,7 +88,25 @@ public class Metodo_arbol {
             Escribir = new FileWriter(archivo, true);
 
             NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("{ rank = same; " + funciones.sameRank + " }");
+            
+            NuevaLinea.print("\n");
+            
+            String sameRank = "";
+            for (int i = 0; i < listaNiveles.length; i++){
+                if (!listaNiveles[i].isEmpty()) {
+                    for(int j = 0; j < listaNiveles[i].size(); j++){
+                        sameRank += "\"" + listaNiveles[i].get(j)  + "\"; ";
+                    }
+                    NuevaLinea.println("{ rank = same; " + sameRank + " }");
+                    sameRank = "";
+                    
+                } else {
+                    break;
+                }
+                
+            }
+            
+            
             NuevaLinea.println("}");
 
             Escribir.close();
@@ -96,6 +124,10 @@ public class Metodo_arbol {
             Process proceso = processBuilder.start();
             int exitCode = proceso.waitFor();       
         } catch (IOException | InterruptedException e) {
+        }
+        
+        for (int i = 0; i < listaNiveles.length; i++){
+            System.out.println("Nivel " + i + " --> " + listaNiveles[i]);
         }
         
         

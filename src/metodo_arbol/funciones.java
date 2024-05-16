@@ -8,7 +8,6 @@ import Clases.nodos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.ArrayList;
 /**
  *
@@ -16,7 +15,6 @@ import java.util.ArrayList;
  */
 public class funciones {
     
-    public static ArrayList<nodos> listaNodosHojas = new ArrayList<>();
     public static String sameRank = "";
     
   
@@ -34,61 +32,73 @@ public class funciones {
 
             Escribir.close();
             
-            listaNodosHojas.add(dato);
             sameRank += "\"" + dato + "\"; ";
+           
         } catch (Exception e) {
         }  
+        
+        dato.setNivel(0);
+        Metodo_arbol.listaNiveles[0].add(dato);
+        
                 
     }
     
     
-    public static void crearUnion(nodos nodoFianl, Object dato1, Object dato2) {
+    public static void crearUnion(nodos nodoFinal, Object dato1, Object dato2) {
         File archivo = new File("./Reportes/arbol.dot");
         FileWriter Escribir;
         PrintWriter NuevaLinea;
         
-        
-        dato1 = ((nodos) dato1);
-        dato2 = ((nodos) dato2);
-        
+        nodos datoN1 = ((nodos) dato1);
+        nodos datoN2 = ((nodos) dato2);
         
         try {
             archivo.createNewFile();
             Escribir = new FileWriter(archivo, true);
 
             NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("    \"" + nodoFianl + "\" [label=\"" + nodoFianl.getValor() +"\", fontsize=15]");
-            NuevaLinea.println("    \"" + nodoFianl + "\" -> \"" + dato1 + "\"");
-            NuevaLinea.println("    \"" + nodoFianl + "\" -> \"" + dato2 + "\"");
+            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"" + nodoFinal.getValor() +"\", fontsize=15]");
+            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
+            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN2 + "\"");
 
             Escribir.close();
             //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
         }  
+        
+        if (datoN1.getNivel() >= datoN2.getNivel()) {
+            nodoFinal.setNivel(datoN1.getNivel() + 1);
+        } else {
+            nodoFinal.setNivel(datoN2.getNivel() + 1);
+        }
+        
+        Metodo_arbol.listaNiveles[nodoFinal.getNivel()].add(nodoFinal);
+            
                 
     }
     
-    public static void conectarNodo(nodos nodoFianl, Object dato1) {
+    public static void conectarNodo(nodos nodoFinal, Object dato1) {
         File archivo = new File("./Reportes/arbol.dot");
         FileWriter Escribir;
         PrintWriter NuevaLinea;
         
-        
-        dato1 = ((nodos) dato1);
-        
+        nodos datoN1 = ((nodos) dato1);
         
         try {
             archivo.createNewFile();
             Escribir = new FileWriter(archivo, true);
 
             NuevaLinea = new PrintWriter(Escribir);
-            NuevaLinea.println("    \"" + nodoFianl + "\" [label=\"" + nodoFianl.getValor() +"\", fontsize=15]");
-            NuevaLinea.println("    \"" + nodoFianl + "\" -> \"" + dato1 + "\"");
+            NuevaLinea.println("    \"" + nodoFinal + "\" [label=\"" + nodoFinal.getValor() +"\", fontsize=15]");
+            NuevaLinea.println("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
 
             Escribir.close();
             //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
         }  
+        
+        nodoFinal.setNivel(datoN1.getNivel() + 1);
+        Metodo_arbol.listaNiveles[datoN1.getNivel() + 1].add(nodoFinal);
                 
     }
     

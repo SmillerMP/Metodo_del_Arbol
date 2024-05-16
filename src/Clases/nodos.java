@@ -4,6 +4,7 @@
  */
 package Clases;
 
+import java.util.ArrayList;
 /**
  *
  * @author samuel
@@ -11,12 +12,16 @@ package Clases;
 public class nodos {
     String tipo;
     String valor;
-    String padre;
+    int nivel;
+    ArrayList<Integer> firstPost;
+    ArrayList<Integer> lastPost;
 
-    public nodos(String tipo, String valor, String padre) {
+    public nodos(String tipo, String valor) {
         this.tipo = tipo;
         this.valor = valor;
-        this.padre = padre;
+        this.nivel = 0;
+        this.firstPost = new ArrayList<>();
+        this.lastPost = new ArrayList<>();
     }
 
     public String getTipo() {
@@ -26,5 +31,33 @@ public class nodos {
     public String getValor() {
         return valor;
     }
+
+    public int getNivel() {
+        return nivel;
+    }
+    
+    
+    
+    
+    // Metodos sets
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    public void setFirstPost(int valor) {
+        this.firstPost.add(valor);
+    }
+
+    public void setLastPost(int valor) {
+        this.firstPost.add(valor);
+    }
+    
+    
+    
+    
+    
+    
+    
     
 }

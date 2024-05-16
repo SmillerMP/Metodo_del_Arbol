@@ -214,7 +214,7 @@ class CUP$Sintactico$actions {
 		int valleft = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int valright = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		String val = (String)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		nodos temp = new nodos("hoja", val, null); RESULT=temp; funciones.crearHoja(temp);
+		nodos temp = new nodos("hoja", val); RESULT=temp; funciones.crearHoja(temp);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("hoja",2, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -229,7 +229,7 @@ class CUP$Sintactico$actions {
 		int valor2left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int valor2right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Object valor2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); 
+		nodos temp = new nodos("Operador de alternancia", "|"); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); 
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -244,7 +244,7 @@ class CUP$Sintactico$actions {
 		int valor2left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).left;
 		int valor2right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).right;
 		Object valor2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).value;
-		nodos temp = new nodos("Operador de alternancia", "|", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); 
+		nodos temp = new nodos("Operador de alternancia", "|"); RESULT=temp; funciones.crearUnion(temp, valor1, valor2); 
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -259,7 +259,7 @@ class CUP$Sintactico$actions {
 		int valor2left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).left;
 		int valor2right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()).right;
 		Object valor2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.peek()).value;
-		nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);
+		nodos temp = new nodos("Concatenación", "."); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -274,7 +274,7 @@ class CUP$Sintactico$actions {
 		int valor2left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).left;
 		int valor2right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).right;
 		Object valor2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).value;
-		nodos temp = new nodos("Concatenación", ".", null); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);
+		nodos temp = new nodos("Concatenación", "."); RESULT=temp; funciones.crearUnion(temp, valor1, valor2);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -286,7 +286,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).value;
-		nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador uno o mas", "+"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -298,7 +298,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).value;
-		nodos temp = new nodos("Operador uno o mas", "+", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador uno o mas", "+"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -310,7 +310,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).value;
-		nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador cero o uno", "?"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -322,7 +322,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).value;
-		nodos temp = new nodos("Operador cero o uno", "?", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador cero o uno", "?"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -334,7 +334,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)).value;
-		nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador cero o mas", "*"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
@@ -346,7 +346,7 @@ class CUP$Sintactico$actions {
 		int valor1left = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).left;
 		int valor1right = ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).right;
 		Object valor1 = (Object)((java_cup.runtime.Symbol) CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-2)).value;
-		nodos temp = new nodos("Operador cero o mas", "*", null); RESULT=temp; funciones.conectarNodo(temp, valor1);
+		nodos temp = new nodos("Operador cero o mas", "*"); RESULT=temp; funciones.conectarNodo(temp, valor1);
               CUP$Sintactico$result = parser.getSymbolFactory().newSymbol("union",1, ((java_cup.runtime.Symbol)CUP$Sintactico$stack.elementAt(CUP$Sintactico$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactico$stack.peek()), RESULT);
             }
           return CUP$Sintactico$result;
