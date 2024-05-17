@@ -13,6 +13,7 @@ import java.io.StringReader;
 import javax.swing.JOptionPane;
 
 import Clases.nodos;
+import java.util.ArrayList;
  
 
 /**
@@ -27,39 +28,16 @@ public class Metodo_arbol {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
-        File carpeta = new File("./Reportes");
-        if (!carpeta.exists()) {
-            carpeta.mkdirs(); // Crea la carpeta y sus subcarpetas si no existen
-        }
-
-        File archivo = new File("./Reportes/arbol.dot");
-
-        FileWriter Escribir;
-        PrintWriter NuevaLinea;
-        archivo.delete();
-        if (!archivo.exists()) {
-
-            try {
-
-                archivo.createNewFile();
-                Escribir = new FileWriter(archivo, true);
-
-                NuevaLinea = new PrintWriter(Escribir);
-                NuevaLinea.println("digraph Gramatica{ \n"
-                    + "    rankdir = TB\n"
-                    + "    splines = line\n"
-                    + "    node[shape=record, fontname=\"Arial\", fontsize=15]\n");
-
-                Escribir.close();
-            } catch (Exception e) {
-            }    
+        // Declarar lista para la tabla de transiciones 
+        for (int i = 1; i < tabla_transiciones.followsNodos.length; i++){
+            tabla_transiciones.followsNodos[i] = new ArrayList<>();
         }
         
-        
-        String textoBase = "(a|b.c|c.d).(a|b.c|c.d)*.(h|E)";
-        
+        String textoBase = "(a|b|c)*";
         String textoAnalizar = "(" + textoBase + ").#";
+        
+        funciones.abrirArchivoArbol(textoAnalizar);
+        
 
         Analizadores.Sintactico parser;
         try {
@@ -67,29 +45,16 @@ public class Metodo_arbol {
             parser.parse(); 
             
             System.out.println("Hola");
- 
-
-            
-            
+   
         } catch (Exception e) {
             System.out.println("Error fatal en compilación de entrada.");
         }      
         
         
-        try {
-            archivo.createNewFile();
-            Escribir = new FileWriter(archivo, true);
-
-            NuevaLinea = new PrintWriter(Escribir);
-            
-            NuevaLinea.println("");
-            NuevaLinea.println("{ rank = same; " + funciones.sameRank + " }");
-            NuevaLinea.println("}");
-
-            Escribir.close();
-            //JOptionPane.showMessageDialog(null, "El Reporte se creo Satisfactoriamente", "Creacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
-        } catch (Exception e) {
-        }    
+        funciones.escribirDotArbol("\n    { rank = same; " + funciones.sameRank + " }\n}");
+        
+       
+        tabla_transiciones.imprimirTabla();
         
         
         String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
