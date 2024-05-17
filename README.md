@@ -14,3 +14,9 @@
 <br>
 
 ![arbol2Ejemplo.svg](/Documentacion/arbol2Ejemplo.svg)
+
+<br>
+
+## Resultados Transiciones
+
+![transicionesEjemplo.svg](/Documentacion/transicionesEjemplo.png)

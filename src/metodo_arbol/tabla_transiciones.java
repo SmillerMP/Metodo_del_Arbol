@@ -84,11 +84,11 @@ public class tabla_transiciones {
                 
                 if (!valoresNodos[valores].equals("#")){
                     listaTransiciones.add(new transiciones(estadoActual, valoresNodos[valores], followsNodos[valores], estadoSiguiente));
-                    escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ]  =  Siguiente(" 
-                        + valores + ")  =  "+ followsNodos[valores] +  "  =  " + estadoSiguiente);
+                    escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ] = Siguiente(" 
+                        + valores + ") = "+ followsNodos[valores] +  " = " + estadoSiguiente);
                 } else {
                     listaTransiciones.add(new transiciones(estadoActual, valoresNodos[valores], followsNodos[valores], null));
-                    escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ]  =  Estado de Aceptacion");
+                    escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ] = Estado de Aceptacion");
                 }
                 
                 
