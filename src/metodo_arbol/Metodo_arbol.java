@@ -5,14 +5,8 @@
 package metodo_arbol;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.StringReader;
-import javax.swing.JOptionPane;
-
-import Clases.nodos;
 import java.util.ArrayList;
  
 
@@ -33,10 +27,11 @@ public class Metodo_arbol {
             tabla_transiciones.followsNodos[i] = new ArrayList<>();
         }
         
-        String textoBase = "(a|b|c)*";
+        String textoBase = "(a|b.c|c.d).(a|b.c|c.d)*.(h|E)";
         String textoAnalizar = "(" + textoBase + ").#";
         
         funciones.abrirArchivoArbol(textoAnalizar);
+        tabla_transiciones.abrirArchivoTransiciones(textoAnalizar);
         
 
         Analizadores.Sintactico parser;
@@ -50,10 +45,10 @@ public class Metodo_arbol {
             System.out.println("Error fatal en compilación de entrada.");
         }      
         
-        
+
         funciones.escribirDotArbol("\n    { rank = same; " + funciones.sameRank + " }\n}");
         
-       
+        tabla_transiciones.realizarTransiciones();       
         tabla_transiciones.imprimirTabla();
         
         
@@ -67,9 +62,5 @@ public class Metodo_arbol {
             int exitCode = proceso.waitFor();       
         } catch (IOException | InterruptedException e) {
         }
-        
-        
-        
     }
-    
 }

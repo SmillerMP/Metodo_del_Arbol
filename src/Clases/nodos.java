@@ -26,6 +26,7 @@ public class nodos {
         this.anulable = false;
     }
 
+    // Metodos Get
     public String getTipo() {
         return tipo;
     }
@@ -51,11 +52,7 @@ public class nodos {
     }
     
     
-   
-    
-    
     // Metodos sets
-
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }

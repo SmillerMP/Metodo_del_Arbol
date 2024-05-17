@@ -26,6 +26,7 @@ public class funciones {
         
         if (dato.getValor().equals("E")) {
             dato.setAnulable(true);
+            
         } else {
             dato.setAnulable(false);
             dato.setFirstPost(numeroHoja);
@@ -119,9 +120,7 @@ public class funciones {
 
         nodos datoN1 = ((nodos) dato1);
         
-        nodoFinal.setNivel(datoN1.getNivel() + 1);
-        ultimoNodo = nodoFinal;
-        
+        nodoFinal.setNivel(datoN1.getNivel() + 1);        
         
         if (nodoFinal.getValor().equals("*")) {
             nodoFinal.setAnulable(true);
