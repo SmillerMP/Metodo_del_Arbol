@@ -106,6 +106,8 @@ public class tabla_transiciones {
     
     public static boolean verificarUnion(String valorNodo) {
         ArrayList<Integer> siguientes = new ArrayList<>();
+        ArrayList<Integer> listaUnion = new ArrayList<>();
+        String estadoActual = estadosPorVerificar.get(0).getEstado();
         
         if (verificarRepitencia(valorNodo) > 1){
             for (int valores: estadosPorVerificar.get(0).getListaSiguientes()){
@@ -115,8 +117,27 @@ public class tabla_transiciones {
                             siguientes.add(follows);
                         }
                     }
+                    
+                    listaUnion.add(valores);
                 }
             }
+            
+            String estadoSiguiente = "";
+            if (!estadosCreados.containsKey(siguientes)){
+
+                estadoSiguiente = "S" + String.valueOf(sumadorEstados);
+                estadosCreados.put(siguientes, estadoSiguiente);
+                estadosPorVerificar.add(new estados_pendientes(estadoSiguiente, siguientes));
+                sumadorEstados++;
+
+            } else {
+                estadoSiguiente = estadosCreados.get(siguientes);
+            }
+            
+            listaTransiciones.add(new transiciones(estadoActual, valorNodo, siguientes, estadoSiguiente));
+            escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valorNodo +" ] = Siguiente( Union -> " 
+                + listaUnion + " ) = "+ siguientes +  " = " + estadoSiguiente);
+           
             return true;
         }      
         return false;   
