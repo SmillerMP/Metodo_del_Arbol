@@ -47,20 +47,17 @@ public class Metodo_arbol {
         
 
         funciones.escribirDotArbol("\n    { rank = same; " + funciones.sameRank + " }\n}");
+        funciones.generarSVG();
         
-        tabla_transiciones.realizarTransiciones();       
+        
+        // Tabla de transiciones y siguientes
+        tabla_transiciones.realizarTransiciones(); 
+        tabla_transiciones.generarTablaSiguientes(textoAnalizar);
         tabla_transiciones.imprimirTabla();
         
         
-        String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", comando);
-
-        try {
-            // Inicia el proceso
-            Process proceso = processBuilder.start();
-            int exitCode = proceso.waitFor();       
-        } catch (IOException | InterruptedException e) {
-        }
+        
+        
+        
     }
 }

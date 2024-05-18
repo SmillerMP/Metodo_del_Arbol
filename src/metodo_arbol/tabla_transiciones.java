@@ -5,13 +5,12 @@
 package metodo_arbol;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
-import Clases.nodos;
 import Clases.estados_pendientes;
 import Clases.transiciones;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 /**
  *
@@ -31,9 +30,9 @@ public class tabla_transiciones {
     
    
     
-    
+     
     public static void imprimirTabla(){
-        // IMPRESION TABLA DE TRANSICIONES
+        // IMPRESION Tabla de siguientes
         for (int i = 1; i<followsNodos.length; i++){
             if (!followsNodos[i].isEmpty()){
                 System.out.println("Simbolo: " + valoresNodos[i] + "  i: " + i + "  Siguientes: " + followsNodos[i]);
@@ -45,8 +44,11 @@ public class tabla_transiciones {
     }
     
     
+    // Realiza el archivo transiciones.txt
+    // va realizando las transiciones para el automata
     public static void realizarTransiciones() {
         
+        // verifica que sea el inicio del arbol, solo se ejecutara una vez
         if (inicio){ 
             estadosPorVerificar.add(new estados_pendientes("S" + String.valueOf(sumadorEstados), funciones.ultimoNodo.getFirstPost()));
             estadosCreados.put(funciones.ultimoNodo.getFirstPost(), "S" + String.valueOf(sumadorEstados));
@@ -54,13 +56,17 @@ public class tabla_transiciones {
             inicio = false;
         }
          
+        // estadosPorVerificar es una lista del tipo tabla_transiciones temporal que alamacena los estados que son necesarios verificar
         if (!estadosPorVerificar.isEmpty()) {
             String estadoActual = estadosPorVerificar.get(0).getEstado();
             escribirTxtTransiciones("\n" + estadoActual + " = " + estadosPorVerificar.get(0).getListaSiguientes());
             ArrayList<String> listaValoresEstado = new ArrayList<>();
         
+            // recorre la lista de los estados por verificar
             for (int valores : estadosPorVerificar.get(0).getListaSiguientes()){
                 
+                // verifica si es necesario realizar uniones en transiciones
+                // por ejemplo S0 = [1,2]; 1,2 = a; S1 = siguientes(1) U siguiente(2);
                 if (!listaValoresEstado.contains(valoresNodos[valores])) {
                     if (verificarUnion(valoresNodos[valores])){
                         listaValoresEstado.add(valoresNodos[valores]);
@@ -71,6 +77,9 @@ public class tabla_transiciones {
                 }
                 
                 String estadoSiguiente = "";
+                
+                // Verifica que el estado S# no haya sido creado antes si ya fue creado buscara
+                // en el hashmap el estado que corresponde a la lista de valores 
                 if (!estadosCreados.containsKey(followsNodos[valores]) && !followsNodos[valores].isEmpty()){
                     
                     estadoSiguiente = "S" + String.valueOf(sumadorEstados);
@@ -170,6 +179,7 @@ public class tabla_transiciones {
         
     }
     
+    
      public static void escribirTxtTransiciones(String linea) {
         
         File archivo = new File("./Reportes/transiciones.txt");
@@ -185,10 +195,85 @@ public class tabla_transiciones {
         } catch (Exception e) {
         }    
     }
-    
-    
-    
-    // recorre la lista de numeros y retorna un string con esta lista
-    //public static String conversionListaString()
+     
+     
+    public static void generarTablaSiguientes(String titulo){
+        File carpeta = new File("./Reportes");
+        if (!carpeta.exists()) {
+            carpeta.mkdirs(); // Crea la carpeta y sus subcarpetas si no existen
+        }
+
+        File archivo = new File("./Reportes/siguientes.dot");
+        archivo.delete();
+        if (!archivo.exists()) {
+            
+            FileWriter Escribir;
+            PrintWriter NuevaLinea;
+        
+            try {
+                archivo.createNewFile();
+                Escribir = new FileWriter(archivo, true);
+                NuevaLinea = new PrintWriter(Escribir);
+                
+                //NuevaLinea.println(linea);
+                NuevaLinea.println("digraph TablaSiguientes{ \n"
+                    + "    fontname=\"Arial\"\n"
+                    + "    fontsize=15\n"
+                    + "    labelloc = \"t\"\n"
+                    + "    label = \" Tabla de siguientes: " + titulo +"\" \n"
+                    + "    node[fontname=\"Arial\", fontsize=15]\n");
+                
+                NuevaLinea.println("    tabla [shape=none label=<");
+                NuevaLinea.println("    <TABLE border=\"1\" cellspacing=\"3\" cellpadding=\"13\">");
+                
+                NuevaLinea.println("    <TR>\n" +
+                "      <TD>Simbolo</TD>\n" +
+                "      <TD>i</TD>\n" +
+                "      <TD>Siguientes</TD>\n" +
+                "    </TR>");
+                
+                boolean salir = false;
+                for (int i = 1; i<followsNodos.length; i++){
+                   
+                    NuevaLinea.println("\n    <TR>");
+                    if (!followsNodos[i].isEmpty()){
+                        NuevaLinea.println("        <TD>" + valoresNodos[i] + "</TD>");
+                        NuevaLinea.println("        <TD>" + i + "</TD>");
+                        NuevaLinea.println("        <TD>" + followsNodos[i] + "</TD>");
+                    } else {
+                        NuevaLinea.println("        <TD>" + valoresNodos[i] + "</TD>");
+                        NuevaLinea.println("        <TD>" + i + "</TD>");
+                        NuevaLinea.println("        <TD> Aceptacion </TD>");
+                        salir = true;
+                    } 
+                    
+                    NuevaLinea.println("    </TR>");
+                    
+                    if (salir){
+                        break;
+                    }
+                }
+                
+                
+                NuevaLinea.println("    </TABLE>>]; \n}");
+                
+                
+                
+                Escribir.close();
+            } catch (Exception e) {
+            }
+        }
+        
+        String comando = "dot -Tsvg ./Reportes/siguientes.dot -o ./Reportes/siguientes.svg "; 
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        processBuilder.command("bash", "-c", comando);
+
+        try {
+            // Inicia el proceso
+            Process proceso = processBuilder.start();
+            int exitCode = proceso.waitFor();       
+        } catch (IOException | InterruptedException e) {
+        }
+    }
     
 }

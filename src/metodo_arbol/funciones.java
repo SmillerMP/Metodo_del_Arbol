@@ -7,6 +7,7 @@ package metodo_arbol;
 import Clases.nodos;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,6 +213,8 @@ public class funciones {
         if (!archivo.exists()) {
 
             funciones.escribirDotArbol("digraph Gramatica{ \n"
+                    + "    fontname=\"Arial \"\n"
+                    + "    fontsize=20\n"
                     + "    rankdir = TB\n"
                     + "    splines = line\n"
                     + "    label = \"" + titulo +"\" \n"
@@ -219,6 +222,19 @@ public class funciones {
                     + "    node[shape=record, fontname=\"Arial\", fontsize=15]\n");
         }
         
+    }
+    
+    public static void generarSVG(){
+        String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        processBuilder.command("bash", "-c", comando);
+
+        try {
+            // Inicia el proceso
+            Process proceso = processBuilder.start();
+            int exitCode = proceso.waitFor();       
+        } catch (IOException | InterruptedException e) {
+        }
     }
     
 }
