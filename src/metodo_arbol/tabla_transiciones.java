@@ -52,30 +52,30 @@ public class tabla_transiciones {
             estadosCreados.put(funciones.ultimoNodo.getFirstPost(), "S" + String.valueOf(sumadorEstados));
             sumadorEstados++;
             inicio = false;
-            System.out.println("hola aqui");
         }
-        
+         
         if (!estadosPorVerificar.isEmpty()) {
             String estadoActual = estadosPorVerificar.get(0).getEstado();
-            
-            
             escribirTxtTransiciones("\n" + estadoActual + " = " + estadosPorVerificar.get(0).getListaSiguientes());
-            
+            ArrayList<String> listaValoresEstado = new ArrayList<>();
+        
             for (int valores : estadosPorVerificar.get(0).getListaSiguientes()){
+                
+                if (!listaValoresEstado.contains(valoresNodos[valores])) {
+                    if (verificarUnion(valoresNodos[valores])){
+                        listaValoresEstado.add(valoresNodos[valores]);
+                        continue;
+                    }
+                } else {
+                    continue;
+                }
                 
                 String estadoSiguiente = "";
                 if (!estadosCreados.containsKey(followsNodos[valores]) && !followsNodos[valores].isEmpty()){
                     
-                    System.out.println("entra aqui ");
-                    System.out.println(estadosPorVerificar);
-                    
-                    
                     estadoSiguiente = "S" + String.valueOf(sumadorEstados);
                     estadosCreados.put(followsNodos[valores], estadoSiguiente);
-                    
                     estadosPorVerificar.add(new estados_pendientes(estadoSiguiente, followsNodos[valores]));
-
-                    
                     sumadorEstados++;
 
                 } else {
@@ -90,18 +90,47 @@ public class tabla_transiciones {
                     listaTransiciones.add(new transiciones(estadoActual, valoresNodos[valores], followsNodos[valores], null));
                     escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ] = Estado de Aceptacion");
                 }
-                
-                
 
             }
             
             // vuelve a llamar a la funcion
             estadosPorVerificar.remove(0);
+            listaValoresEstado.clear();
             realizarTransiciones();
             
         } else {
             System.out.println("transiciones terminadas");
         }    
+    }
+    
+    
+    public static boolean verificarUnion(String valorNodo) {
+        ArrayList<Integer> siguientes = new ArrayList<>();
+        
+        if (verificarRepitencia(valorNodo) > 1){
+            for (int valores: estadosPorVerificar.get(0).getListaSiguientes()){
+                if (valorNodo.equals(valoresNodos[valores])){
+                    for (int follows: followsNodos[valores]){
+                        if (!siguientes.contains(follows)){
+                            siguientes.add(follows);
+                        }
+                    }
+                }
+            }
+            return true;
+        }      
+        return false;   
+    }
+    
+    public static int verificarRepitencia(String valorNodo) {
+        int repetidos = 0;
+        for (int valores : estadosPorVerificar.get(0).getListaSiguientes()){
+            if (valorNodo.equals(valoresNodos[valores])){
+                repetidos++;
+            }
+        }
+        
+        return repetidos;
     }
     
     
