@@ -4,19 +4,25 @@
 
 - (a|b.c|c.d).(a|b.c|c.d)*.(h|E)
 - (a|b|c)*
+- (a|b|c).(d|b).d*
 
 
 <br>
 
-## Resultado de Árbol
+### Árbol
 ![arbolEjemplo.svg](/Documentacion/arbolEjemplo.svg)
 
 <br>
 
-![arbol2Ejemplo.svg](/Documentacion/arbol2Ejemplo.svg)
+### Tabla de siguientes
+![siguientesEjemplo.svg](/Documentacion/siguientesEjemplo.svg)
 
 <br>
 
-## Resultados Transiciones
+### Transiciones
+![transicionesEjemplo.png](/Documentacion/transicionesEjemplo.png)
 
-![transicionesEjemplo.svg](/Documentacion/transicionesEjemplo.png)
+<br>
+
+### Automata
+![automataEjemplo.svg](/Documentacion/automataEjemplo.svg)

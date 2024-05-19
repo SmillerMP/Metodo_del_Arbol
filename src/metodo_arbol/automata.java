@@ -49,11 +49,17 @@ public class automata {
                 
                 
                 for (transiciones movimiento: listaAutomata){                                  
-                    if (movimiento.getSiguienteEstado() != null){
+                    if (movimiento.getSiguienteEstado() == null){
+                        NuevaLinea.println("    \"" + movimiento.getEstado() + "\" [shape=doublecircle, style=filled, fillcolor=firebrick1]");
+                    } else {
                         NuevaLinea.println("    \"" + movimiento.getEstado() + "\" -> \"" + movimiento.getSiguienteEstado() + 
                                 "\" [label = \"" + movimiento.getTransicion() + "\"];");
                     }
                 }
+                
+                NuevaLinea.println("    \"" + listaAutomata.get(0).getEstado() + "\" [style=filled, fillcolor=limegreen]");
+
+                
                 
                 
                 NuevaLinea.println("}");
