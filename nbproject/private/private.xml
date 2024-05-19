@@ -4,10 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/metodo_arbol/funciones.java</file>
+            <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/Clases/nodos.java</file>
             <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/metodo_arbol/tabla_transiciones.java</file>
             <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/metodo_arbol/gui.java</file>
             <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/metodo_arbol/automata.java</file>
             <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/metodo_arbol/Metodo_arbol.java</file>
+            <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/Analizadores/Sintactico</file>
+            <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/Analizadores/Lexico</file>
+            <file>file:/home/samuel/Documentos/Proyectos/metodo_arbol/metodo_arbol/src/Clases/transiciones.java</file>
         </group>
     </open-files>
 </project-private>
