@@ -27,7 +27,7 @@ public class Metodo_arbol {
             tabla_transiciones.followsNodos[i] = new ArrayList<>();
         }
         
-        String textoBase = "(d|b|c|a|E).(d|b).d*";
+        String textoBase = "(h|E).(b.c|c.d|a).(b.c|c.d|a)*";
         String textoAnalizar = "(" + textoBase + ").#";
         
         funciones.abrirArchivoArbol(textoAnalizar);
@@ -53,11 +53,8 @@ public class Metodo_arbol {
         // Tabla de transiciones y siguientes
         tabla_transiciones.realizarTransiciones(); 
         tabla_transiciones.generarTablaSiguientes(textoAnalizar);
-        tabla_transiciones.imprimirTabla();
+        tabla_transiciones.imprimirTabla(); 
         
-        
-        
-        
-        
+        automata.crearAutomata(textoAnalizar);
     }
 }

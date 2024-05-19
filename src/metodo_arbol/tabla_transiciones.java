@@ -25,7 +25,6 @@ public class tabla_transiciones {
     public static boolean inicio = true;
     public static HashMap<ArrayList, String> estadosCreados = new HashMap<>();
     public static ArrayList<estados_pendientes> estadosPorVerificar = new ArrayList<>();
-    public static ArrayList<transiciones> listaTransiciones = new ArrayList<>();
     public static int sumadorEstados = 0;
     
    
@@ -92,11 +91,11 @@ public class tabla_transiciones {
                 }
                 
                 if (!valoresNodos[valores].equals("#")){
-                    listaTransiciones.add(new transiciones(estadoActual, valoresNodos[valores], followsNodos[valores], estadoSiguiente));
+                    automata.listaAutomata.add(new transiciones(estadoActual, valoresNodos[valores], estadoSiguiente));
                     escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ] = Siguiente(" 
                         + valores + ") = "+ followsNodos[valores] +  " = " + estadoSiguiente);
                 } else {
-                    listaTransiciones.add(new transiciones(estadoActual, valoresNodos[valores], followsNodos[valores], null));
+                    automata.listaAutomata.add(new transiciones(estadoActual, valoresNodos[valores], null));
                     escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valoresNodos[valores] +" ] = Estado de Aceptacion");
                 }
 
@@ -143,7 +142,7 @@ public class tabla_transiciones {
                 estadoSiguiente = estadosCreados.get(siguientes);
             }
             
-            listaTransiciones.add(new transiciones(estadoActual, valorNodo, siguientes, estadoSiguiente));
+            automata.listaAutomata.add(new transiciones(estadoActual, valorNodo, estadoSiguiente));
             escribirTxtTransiciones("Transicion[ " + estadoActual + ", " + valorNodo +" ] = Siguiente( Union -> " 
                 + listaUnion + " ) = "+ siguientes +  " = " + estadoSiguiente);
            

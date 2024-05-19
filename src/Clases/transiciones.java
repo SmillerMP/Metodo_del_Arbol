@@ -13,13 +13,11 @@ import java.util.ArrayList;
 public class transiciones {
     String estado;
     String transicion;
-    ArrayList<Integer> listaSiguientes;
     String siguienteEstado;
 
-    public transiciones(String estado, String transicion, ArrayList<Integer> listaSiguientes, String siguienteEstado) {
+    public transiciones(String estado, String transicion, String siguienteEstado) {
         this.estado = estado;
         this.transicion = transicion;
-        this.listaSiguientes = listaSiguientes;
         this.siguienteEstado = siguienteEstado;
     }
 
