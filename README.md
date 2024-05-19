@@ -12,17 +12,12 @@
 ### Árbol
 ![arbolEjemplo.svg](/Documentacion/arbolEjemplo.svg)
 
-<br>
 
 ### Tabla de siguientes
 ![siguientesEjemplo.svg](/Documentacion/siguientesEjemplo.svg)
 
-<br>
-
 ### Transiciones
 ![transicionesEjemplo.png](/Documentacion/transicionesEjemplo.png)
-
-<br>
 
 ### Automata
 ![automataEjemplo.svg](/Documentacion/automataEjemplo.svg)
