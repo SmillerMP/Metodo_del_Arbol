@@ -19,9 +19,17 @@ import static metodo_arbol.tabla_transiciones.valoresNodos;
  */
 public class automata {
     public static ArrayList<transiciones> listaAutomata = new ArrayList<>();
+
+    String titulo;
+    public automata(String titulo) {
+        this.titulo = titulo;
+    }
     
+    void limpiarElementos() {
+        listaAutomata.clear();
+    }
     
-    public static void crearAutomata(String titulo){    
+    void crearAutomata(){    
         File carpeta = new File("./Reportes");
         if (!carpeta.exists()) {
             carpeta.mkdirs(); // Crea la carpeta y sus subcarpetas si no existen

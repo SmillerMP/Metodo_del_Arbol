@@ -19,18 +19,34 @@ import java.io.PrintWriter;
 
 
 public class tabla_transiciones {
-    public static String[] valoresNodos = new String[50];
+    public static String[] valoresNodos = new String[50];;
     public static ArrayList<Integer>[] followsNodos = new ArrayList[50];
  
-    public static boolean inicio = true;
-    public static HashMap<ArrayList, String> estadosCreados = new HashMap<>();
-    public static ArrayList<estados_pendientes> estadosPorVerificar = new ArrayList<>();
-    public static int sumadorEstados = 0;
     
-   
+    // Variables locales
+    boolean inicio;
+    HashMap<ArrayList, String> estadosCreados;
+    ArrayList<estados_pendientes> estadosPorVerificar;
+    int sumadorEstados;
+    String titulo;
+
+    public tabla_transiciones(String titulo) {
+        this.titulo = titulo;
+        this.inicio = true;
+        this.estadosCreados = new HashMap<>();
+        this.estadosPorVerificar = new ArrayList<>();
+        sumadorEstados = 0;
+    } 
     
+    
+    void limpiarElementos(){
+        for (int i = 0; i < valoresNodos.length; i++){
+            valoresNodos[i] = null;
+            followsNodos[i] = null;
+        }
+    }
      
-    public static void imprimirTabla(){
+    void imprimirTabla(){
         // IMPRESION Tabla de siguientes
         for (int i = 1; i<followsNodos.length; i++){
             if (!followsNodos[i].isEmpty()){
@@ -45,7 +61,7 @@ public class tabla_transiciones {
     
     // Realiza el archivo transiciones.txt
     // va realizando las transiciones para el automata
-    public static void realizarTransiciones() {
+    void realizarTransiciones() {
         
         // verifica que sea el inicio del arbol, solo se ejecutara una vez
         if (inicio){ 
@@ -112,7 +128,7 @@ public class tabla_transiciones {
     }
     
     
-    public static boolean verificarUnion(String valorNodo) {
+    boolean verificarUnion(String valorNodo) {
         ArrayList<Integer> siguientes = new ArrayList<>();
         ArrayList<Integer> listaUnion = new ArrayList<>();
         String estadoActual = estadosPorVerificar.get(0).getEstado();
@@ -151,7 +167,7 @@ public class tabla_transiciones {
         return false;   
     }
     
-    public static int verificarRepitencia(String valorNodo) {
+    int verificarRepitencia(String valorNodo) {
         int repetidos = 0;
         for (int valores : estadosPorVerificar.get(0).getListaSiguientes()){
             if (valorNodo.equals(valoresNodos[valores])){
@@ -163,7 +179,7 @@ public class tabla_transiciones {
     }
     
     
-    public static void abrirArchivoTransiciones(String titulo){
+    void abrirArchivoTransiciones(){
         File carpeta = new File("./Reportes");
         if (!carpeta.exists()) {
             carpeta.mkdirs(); // Crea la carpeta y sus subcarpetas si no existen
@@ -179,7 +195,7 @@ public class tabla_transiciones {
     }
     
     
-     public static void escribirTxtTransiciones(String linea) {
+    void escribirTxtTransiciones(String linea) {
         
         File archivo = new File("./Reportes/transiciones.txt");
         FileWriter Escribir;
@@ -196,7 +212,7 @@ public class tabla_transiciones {
     }
      
      
-    public static void generarTablaSiguientes(String titulo){
+    void generarTablaSiguientes(){
         File carpeta = new File("./Reportes");
         if (!carpeta.exists()) {
             carpeta.mkdirs(); // Crea la carpeta y sus subcarpetas si no existen

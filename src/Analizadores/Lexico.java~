@@ -3,6 +3,8 @@
 package Analizadores;
 import java_cup.runtime.Symbol; 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -246,7 +248,7 @@ public class Lexico implements java_cup.runtime.Scanner {
    */
   public Lexico(java.io.Reader in) {
   	yyline = 1; 
-	yychar = 1; 
+	yychar = 0; 
     this.zzReader = in;
   }
 
@@ -624,7 +626,7 @@ public class Lexico implements java_cup.runtime.Scanner {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
             { System.err.println("Este es un error lexico: "+yytext()+ ", en la linea: "+yyline+", en la columna: "+yychar);
-    //listaErrores.add(new Errores("Lexico", "Caracter no encontrado: "+ yytext(), yyline+"", yychar+""));
+    JOptionPane.showMessageDialog(null, "Error no se reconoce el simbolo: "+ yytext(), "Error", JOptionPane.ERROR_MESSAGE);
             } 
             // fall through
           case 13: break;

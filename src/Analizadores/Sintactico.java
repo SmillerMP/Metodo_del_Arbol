@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Clases.nodos;
 import metodo_arbol.funciones;
+import javax.swing.JOptionPane;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20150326 (SVN rev 65) generated parser.
@@ -143,23 +144,11 @@ public class Sintactico extends java_cup.runtime.lr_parser {
      * Método al que se llama automáticamente ante algún error sintactico.
      **/ 
 
-
     // Guarda el error Sintactico
     public void syntax_error(Symbol s){ 
-        System.out.println("Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        System.err.println("Error Sintáctico en la Línea " + (s.left) + " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
+        JOptionPane.showMessageDialog(null, "No se esperaba este componente: " +s.value + "\nNo olvides colocar punto para las uniones", "Error", JOptionPane.ERROR_MESSAGE);
     } 
-
-
-    /**
-     * Método al que se llama automáticamente ante algún error sintáctico 
-     * en el que ya no es posible una recuperación de errores.
-     **/ 
-    // Reporta error sintactico inrecuperable
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
-        System.out.println("Error síntactico irrecuperable en la Línea " + (s.left)+ " Columna "+s.right+". Componente " + s.value + " no reconocido."); 
-    }  
-    
-
 
 
 /** Cup generated class to encapsulate user supplied action code.*/

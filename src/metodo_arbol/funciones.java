@@ -17,89 +17,95 @@ import java.util.List;
  */
 public class funciones {
     
-    public static String sameRank = "";
     public static nodos ultimoNodo;
+    public static String sameRank = "";
     public static int numeroHoja = 1;
     
+    
+    public static void limpiarElementos(){
+        ultimoNodo = null;
+        sameRank = "";
+        numeroHoja = 1;
+    }
   
-    public static void crearHoja(nodos dato) {
-        dato.setNivel(0);
+    public static void crearHoja(nodos hijo) {
+        hijo.setNivel(0);
         
-        if (dato.getValor().equals("E")) {
-            dato.setAnulable(true);
+        if (hijo.getValor().equals("E")) {
+            hijo.setAnulable(true);
             
         } else {
-            dato.setAnulable(false);
-            dato.setFirstPost(numeroHoja);
-            dato.setLastPost(numeroHoja);     
-            tabla_transiciones.valoresNodos[numeroHoja] = dato.getValor();
+            hijo.setAnulable(false);
+            hijo.setFirstPost(numeroHoja);
+            hijo.setLastPost(numeroHoja);     
+            tabla_transiciones.valoresNodos[numeroHoja] = hijo.getValor();
             numeroHoja ++;
         }  
    
-        escribirDotArbol("    \"" + dato + "\" [label=\"First Post \\n" + dato.getFirstPost()+ " | Nodo: " +
-                dato.getValor() + " \\n Anulable: " + dato.getAnulable() + "| Last Post \\n " + dato.getLastPost() + "\", fontsize=11]");
-        sameRank += "\"" + dato + "\"; ";
+        escribirDotArbol("    \"" + hijo + "\" [label=\"First Post \\n" + hijo.getFirstPost()+ " | Nodo: " +
+                hijo.getValor() + " \\n Anulable: " + hijo.getAnulable() + "| Last Post \\n " + hijo.getLastPost() + "\", fontsize=11]");
+        sameRank += "\"" + hijo + "\"; ";
            
     }
     
 
-    public static void crearUnion(nodos nodoFinal, Object dato1, Object dato2) {
-        nodos datoN1 = ((nodos) dato1);
-        nodos datoN2 = ((nodos) dato2);
+    public static void crearUnion(nodos nodoPadre, Object hIzq, Object hDer) {
+        nodos hijoIzquierda = ((nodos) hIzq);
+        nodos hijoDerecha = ((nodos) hDer);
         
         //--------------------------------------------------------------------------------
         // MANEJO DE NIVELS, ANULABILIDAD Y POSTS
-        if (datoN1.getNivel() >= datoN2.getNivel()) {
-            nodoFinal.setNivel(datoN1.getNivel() + 1);
+        if (hijoIzquierda.getNivel() >= hijoDerecha.getNivel()) {
+            nodoPadre.setNivel(hijoIzquierda.getNivel() + 1);
         } else {
-            nodoFinal.setNivel(datoN2.getNivel() + 1);
+            nodoPadre.setNivel(hijoDerecha.getNivel() + 1);
         }
         
-        ultimoNodo = nodoFinal;
+        ultimoNodo = nodoPadre;
         
-        if (nodoFinal.getValor().equals("|")) {
-            if (datoN1.getAnulable() == true || datoN2.getAnulable() == true){
-                nodoFinal.setAnulable(true);
+        if (nodoPadre.getValor().equals("|")) {
+            if (hijoIzquierda.getAnulable() == true || hijoDerecha.getAnulable() == true){
+                nodoPadre.setAnulable(true);
             }else {
-                nodoFinal.setAnulable(false);
+                nodoPadre.setAnulable(false);
                 
             }
             
             // FIRST POST
-            agregarAListas(nodoFinal, datoN1, "first");
-            agregarAListas(nodoFinal, datoN2, "first");
+            agregarAListas(nodoPadre, hijoIzquierda, "first");
+            agregarAListas(nodoPadre, hijoDerecha, "first");
             
             // LAST POST    
-            agregarAListas(nodoFinal, datoN1, "last");
-            agregarAListas(nodoFinal, datoN2, "last");
+            agregarAListas(nodoPadre, hijoIzquierda, "last");
+            agregarAListas(nodoPadre, hijoDerecha, "last");
             
             
-        } else if (nodoFinal.getValor().equals(".")) {
-            if (datoN1.getAnulable() == true && datoN2.getAnulable() == true){
-                nodoFinal.setAnulable(true);
+        } else if (nodoPadre.getValor().equals(".")) {
+            if (hijoIzquierda.getAnulable() == true && hijoDerecha.getAnulable() == true){
+                nodoPadre.setAnulable(true);
             }else {
-                nodoFinal.setAnulable(false);
+                nodoPadre.setAnulable(false);
             }
             
             // FIRST POST
-            if (datoN1.getAnulable() == true) {     
-                agregarAListas(nodoFinal, datoN1, "first");    
-                agregarAListas(nodoFinal, datoN2, "first");
+            if (hijoIzquierda.getAnulable() == true) {     
+                agregarAListas(nodoPadre, hijoIzquierda, "first");    
+                agregarAListas(nodoPadre, hijoDerecha, "first");
             } else {
-                agregarAListas(nodoFinal, datoN1, "first");  
+                agregarAListas(nodoPadre, hijoIzquierda, "first");  
             }
             
             // LAST POST
-            if (datoN2.getAnulable() == true){
-                agregarAListas(nodoFinal, datoN1, "last");    
-                agregarAListas(nodoFinal, datoN2, "last");
+            if (hijoDerecha.getAnulable() == true){
+                agregarAListas(nodoPadre, hijoIzquierda, "last");    
+                agregarAListas(nodoPadre, hijoDerecha, "last");
             } else {
-                agregarAListas(nodoFinal, datoN2, "last");
+                agregarAListas(nodoPadre, hijoDerecha, "last");
             }
             
             // FOLLOW POST
-            for ( int destino: datoN1.getLastPost()){            
-                for (int fuente: datoN2.getFirstPost()){
+            for ( int destino: hijoIzquierda.getLastPost()){            
+                for (int fuente: hijoDerecha.getFirstPost()){
                     if (!tabla_transiciones.followsNodos[destino].contains(fuente)){
                         tabla_transiciones.followsNodos[destino].add(fuente);
                     }
@@ -110,45 +116,45 @@ public class funciones {
         
         //--------------------------------------------------------------------------------
         
-        escribirDotArbol("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
-                nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
-        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
-        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN2 + "\"");
+        escribirDotArbol("    \"" + nodoPadre + "\" [label=\"First Post \\n" + nodoPadre.getFirstPost()+ " | Nodo: \\" +
+                nodoPadre.getValor() + " \\n Anulable: " + nodoPadre.getAnulable() + "| Last Post \\n " + nodoPadre.getLastPost() + "\", fontsize=11]");
+        escribirDotArbol("    \"" + nodoPadre + "\" -> \"" + hijoIzquierda + "\"");
+        escribirDotArbol("    \"" + nodoPadre + "\" -> \"" + hijoDerecha + "\"");
                    
     }
     
-    public static void conectarNodo(nodos nodoFinal, Object dato1) {
+    public static void conectarNodo(nodos nodoPadre, Object hIzq) {
 
-        nodos datoN1 = ((nodos) dato1);
+        nodos hijoIzquierda = ((nodos) hIzq);
         
-        nodoFinal.setNivel(datoN1.getNivel() + 1);        
+        nodoPadre.setNivel(hijoIzquierda.getNivel() + 1);        
         
-        if (nodoFinal.getValor().equals("*")) {
-            nodoFinal.setAnulable(true);
+        if (nodoPadre.getValor().equals("*")) {
+            nodoPadre.setAnulable(true);
             
             // FOLLOW POST
-            for ( int destino: datoN1.getLastPost()){            
-                for (int fuente: datoN1.getFirstPost()){
+            for ( int destino: hijoIzquierda.getLastPost()){            
+                for (int fuente: hijoIzquierda.getFirstPost()){
                     if (!tabla_transiciones.followsNodos[destino].contains(fuente)){
                         tabla_transiciones.followsNodos[destino].add(fuente);
                     }
                 }
             }
             
-        } else if (nodoFinal.getValor().equals("?")) {
-            nodoFinal.setAnulable(true);
+        } else if (nodoPadre.getValor().equals("?")) {
+            nodoPadre.setAnulable(true);
             
-        } else if (nodoFinal.getValor().equals("+")) {
-            if (datoN1.getAnulable() == true){
-                nodoFinal.setAnulable(true);
+        } else if (nodoPadre.getValor().equals("+")) {
+            if (hijoIzquierda.getAnulable() == true){
+                nodoPadre.setAnulable(true);
                 
             } else {
-                nodoFinal.setAnulable(false);
+                nodoPadre.setAnulable(false);
             }
             
             // FOLLOW POST
-            for ( int destino: datoN1.getLastPost()){            
-                for (int fuente: datoN1.getFirstPost()){
+            for ( int destino: hijoIzquierda.getLastPost()){            
+                for (int fuente: hijoIzquierda.getFirstPost()){
                     if (!tabla_transiciones.followsNodos[destino].contains(fuente)){
                         tabla_transiciones.followsNodos[destino].add(fuente);
                     }
@@ -159,15 +165,15 @@ public class funciones {
         // no se verifica ya que tipo de cerradura es ya que al ser un unico valor
         // primera y ultima post son las mismas al hijo
         // FIRST POST
-        agregarAListas(nodoFinal, datoN1, "first");    
+        agregarAListas(nodoPadre, hijoIzquierda, "first");    
         
         // LAST POST
-        agregarAListas(nodoFinal, datoN1, "last");    
+        agregarAListas(nodoPadre, hijoIzquierda, "last");    
         //--------------------------------------------------------------------------------------------------
             
-        escribirDotArbol("    \"" + nodoFinal + "\" [label=\"First Post \\n" + nodoFinal.getFirstPost()+ " | Nodo: \\" +
-                nodoFinal.getValor() + " \\n Anulable: " + nodoFinal.getAnulable() + "| Last Post \\n " + nodoFinal.getLastPost() + "\", fontsize=11]");
-        escribirDotArbol("    \"" + nodoFinal + "\" -> \"" + datoN1 + "\"");
+        escribirDotArbol("    \"" + nodoPadre + "\" [label=\"First Post \\n" + nodoPadre.getFirstPost()+ " | Nodo: \\" +
+                nodoPadre.getValor() + " \\n Anulable: " + nodoPadre.getAnulable() + "| Last Post \\n " + nodoPadre.getLastPost() + "\", fontsize=11]");
+        escribirDotArbol("    \"" + nodoPadre + "\" -> \"" + hijoIzquierda + "\"");
          
     }
     
@@ -212,7 +218,7 @@ public class funciones {
         archivo.delete();
         if (!archivo.exists()) {
 
-            funciones.escribirDotArbol("digraph Gramatica{ \n"
+            funciones.escribirDotArbol("digraph Expresion{ \n"
                     + "    fontname=\"Arial \"\n"
                     + "    fontsize=20\n"
                     + "    rankdir = TB\n"

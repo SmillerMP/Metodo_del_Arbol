@@ -1,6 +1,8 @@
 package Analizadores;
 import java_cup.runtime.Symbol; 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 
 %% 
 
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 
 %init{ 
 	yyline = 1; 
-	yychar = 1; 
+	yychar = 0; 
 %init} 
 
 BLANCOS = [ \r\t]+   
@@ -51,7 +53,8 @@ STRING = \"(([^\"\\]?|\\.)*)\"
 
 . {
     System.err.println("Este es un error lexico: "+yytext()+ ", en la linea: "+yyline+", en la columna: "+yychar);
-    //listaErrores.add(new Errores("Lexico", "Caracter no encontrado: "+ yytext(), yyline+"", yychar+""));
+    JOptionPane.showMessageDialog(null, "Error no se reconoce el simbolo: "+ yytext(), "Error", JOptionPane.ERROR_MESSAGE);
+
 }
 
 
