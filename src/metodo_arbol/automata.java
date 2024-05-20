@@ -67,9 +67,6 @@ public class automata {
                 
                 NuevaLinea.println("    \"" + listaAutomata.get(0).getEstado() + "\" [style=filled, fillcolor=limegreen]");
 
-                
-                
-                
                 NuevaLinea.println("}");
                 
                 Escribir.close();
@@ -77,10 +74,16 @@ public class automata {
             }
         }
         
-        String comando = "dot -Tsvg ./Reportes/automata.dot -o ./Reportes/automata.svg "; 
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", comando);
 
+        if (Metodo_arbol.sistemaOperativo.equals("linux")){
+            String comando = "dot -Tsvg ./Reportes/automata.dot -o ./Reportes/automata.svg "; 
+            processBuilder.command("bash", "-c", comando);
+        } else {
+            processBuilder.command("cmd.exe", "/c", "dot -Tsvg", ".\\Reportes\\automata.dot", "-o", ".\\Reportes\\automata.svg");
+        }
+        
+       
         try {
             // Inicia el proceso
             Process proceso = processBuilder.start();

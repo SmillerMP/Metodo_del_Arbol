@@ -269,19 +269,22 @@ public class tabla_transiciones {
                     }
                 }
                 
-                
                 NuevaLinea.println("    </TABLE>>]; \n}");
-                
-                
-                
+
                 Escribir.close();
             } catch (Exception e) {
             }
         }
         
-        String comando = "dot -Tsvg ./Reportes/siguientes.dot -o ./Reportes/siguientes.svg "; 
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", comando);
+
+        if (Metodo_arbol.sistemaOperativo.equals("linux")){
+            String comando = "dot -Tsvg ./Reportes/siguientes.dot -o ./Reportes/siguientes.svg "; 
+            processBuilder.command("bash", "-c", comando);
+        } else {
+            processBuilder.command("cmd.exe", "/c", "dot -Tsvg", ".\\Reportes\\siguientes.dot", "-o", ".\\Reportes\\siguientes.svg");
+        }
+        
 
         try {
             // Inicia el proceso

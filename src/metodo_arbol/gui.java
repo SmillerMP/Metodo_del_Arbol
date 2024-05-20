@@ -174,7 +174,6 @@ public class gui extends javax.swing.JFrame {
         menuReportes.add(itemBorrarReportes);
 
         jMenuBar1.add(menuReportes);
-        menuReportes.getAccessibleContext().setAccessibleDescription("");
 
         menuAyuda.setForeground(new java.awt.Color(255, 250, 230));
         menuAyuda.setText("Ayuda");
@@ -267,9 +266,14 @@ public class gui extends javax.swing.JFrame {
             } catch (Exception e) {
                 System.out.println("Error fatal en compilación de entrada.");
                 
-                String comando = "rm -r ./Reportes/*"; 
                 ProcessBuilder processBuilder = new ProcessBuilder();
-                processBuilder.command("bash", "-c", comando);
+
+                if (Metodo_arbol.sistemaOperativo.equals("linux")){
+                    String comando = "xdg-open ./Reportes";
+                    processBuilder.command("bash", "-c", comando);
+                } else {
+                    processBuilder.command("cmd.exe", "/c", "start", ".\\Reportes");
+                }
 
                 try {
                     // Inicia el proceso
@@ -311,10 +315,16 @@ public class gui extends javax.swing.JFrame {
 
     private void itemAbrirCarpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAbrirCarpetaActionPerformed
         // TODO add your handling code here:
-        String comando = "xdg-open ./Reportes "; 
+        
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", comando);
 
+        if (Metodo_arbol.sistemaOperativo.equals("linux")){
+            String comando = "xdg-open ./Reportes";
+            processBuilder.command("bash", "-c", comando);
+        } else {
+            processBuilder.command("cmd.exe", "/c", "start", ".\\Reportes");
+        }
+        
         try {
             // Inicia el proceso
             Process proceso = processBuilder.start();
@@ -330,10 +340,15 @@ public class gui extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);       
         
         if (yesOrNo == 0) {
-            String comando = "rm -r ./Reportes/*"; 
             ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.command("bash", "-c", comando);
-
+            
+            if (Metodo_arbol.sistemaOperativo.equals("linux")){
+                String comando = "rm -r ./Reportes/*"; 
+                processBuilder.command("bash", "-c", comando);
+            } else {
+                processBuilder.command("cmd.exe", "/c", "del /q /s", ".\\Reportes\\*");
+            }
+            
             try {
                 // Inicia el proceso
                 Process proceso = processBuilder.start();

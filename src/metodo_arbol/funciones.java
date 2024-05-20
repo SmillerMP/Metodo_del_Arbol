@@ -231,9 +231,16 @@ public class funciones {
     }
     
     public static void generarSVG(){
-        String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
+        
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("bash", "-c", comando);
+
+        if (Metodo_arbol.sistemaOperativo.equals("linux")){
+            String comando = "dot -Tsvg ./Reportes/arbol.dot -o ./Reportes/arbol.svg "; 
+            processBuilder.command("bash", "-c", comando);
+        } else {
+            processBuilder.command("cmd.exe", "/c", "dot -Tsvg", ".\\Reportes\\arbol.dot", "-o", ".\\Reportes\\arbol.svg");
+        }
+        
 
         try {
             // Inicia el proceso
