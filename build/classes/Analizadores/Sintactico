@@ -39,7 +39,6 @@ terminal String ACEPTACION;
 non terminal ini;
 non terminal union;
 non terminal hoja;
-non terminal gramatica;
 non terminal hojafinal;
 
 precedence left ALTER;

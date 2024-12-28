@@ -90,7 +90,7 @@ public class gui extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(entradaExpresion, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(entradaExpresion)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(botonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -190,6 +190,11 @@ public class gui extends javax.swing.JFrame {
 
         acercaDe.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
         acercaDe.setText("Acerca de");
+        acercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acercaDeActionPerformed(evt);
+            }
+        });
         menuAyuda.add(acercaDe);
 
         jMenuBar1.add(menuAyuda);
@@ -357,6 +362,12 @@ public class gui extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_itemBorrarReportesActionPerformed
+
+    private void acercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acercaDeActionPerformed
+        // TODO add your handling code here:
+        acerca_de info = new acerca_de();
+        info.setVisible(true);
+    }//GEN-LAST:event_acercaDeActionPerformed
 
     /**
      * @param args the command line arguments

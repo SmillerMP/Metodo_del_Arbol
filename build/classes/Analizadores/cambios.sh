@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 # Rutas a los archivos que deseas monitorear
 archivo_lexico="Lexico"
