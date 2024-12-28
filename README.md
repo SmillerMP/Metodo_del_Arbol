@@ -6,7 +6,7 @@
 <br>
 
 ## Advertencias
-- En caso de colocar palabras no es necesario palabras, aun que pueda que sea necesario para algunos casos especificos.
+- En caso de colocar palabras no es necesario comillas, aun que pueda que sean necesarias para algunos casos especificos.
 - No utilizar # al final, el programa lo colocara de manera automatica.
 - Para respresentar Epsilon, utilizar la E (Mayuscula).
 - asegurate de usar correctamente los parentesis para agrupar.
