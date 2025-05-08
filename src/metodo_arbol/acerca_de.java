@@ -49,7 +49,7 @@ public class acerca_de extends javax.swing.JFrame {
         jTextArea1.setFont(new java.awt.Font("Noto Sans", 0, 13)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 250, 230));
         jTextArea1.setRows(5);
-        jTextArea1.setText("Este es un pequeño proyecto pensando\npara ayudar a todos los estudiantes de \nIngenieria en Ciencias y Sistemas.\nMas que a nadie a la comunidad \nSan Carlista. \n\nEsperanado que sea util y que sea de \nbeneficio para cualquier persona que \nutilice esta herramienta.\n\nBy: SmillerMP");
+        jTextArea1.setText("Este es un pequeño proyecto pensando\npara ayudar a todos los estudiantes de \nIngeniería en Ciencias y Sistemas.\nMas que a nadie a la comunidad \nSan Carlista. \n\nEsperando que sea útil y que sea de \nbeneficio para cualquier persona que \nutilice esta herramienta.\n\nBy: SmillerMP");
         jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 

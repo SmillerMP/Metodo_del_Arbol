@@ -46,3 +46,8 @@
 
 ## Notas
 Cualquier recomendación, sujerencia o cambio dejarlo en el apartado de issues
+
+</br>
+
+## Licencia
+Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICENSE](./LICENSE.md) para más detalles.

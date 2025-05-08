@@ -112,7 +112,7 @@
                   <Color blue="e6" green="fa" red="ff" type="rgb"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Este es un peque&#xf1;o proyecto pensando&#xa;para ayudar a todos los estudiantes de &#xa;Ingenieria en Ciencias y Sistemas.&#xa;Mas que a nadie a la comunidad &#xa;San Carlista. &#xa;&#xa;Esperanado que sea util y que sea de &#xa;beneficio para cualquier persona que &#xa;utilice esta herramienta.&#xa;&#xa;By: SmillerMP"/>
+                <Property name="text" type="java.lang.String" value="Este es un peque&#xf1;o proyecto pensando&#xa;para ayudar a todos los estudiantes de &#xa;Ingenier&#xed;a en Ciencias y Sistemas.&#xa;Mas que a nadie a la comunidad &#xa;San Carlista. &#xa;&#xa;Esperando que sea &#xfa;til y que sea de &#xa;beneficio para cualquier persona que &#xa;utilice esta herramienta.&#xa;&#xa;By: SmillerMP"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

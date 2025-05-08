@@ -93,7 +93,7 @@ public class tabla_transiciones {
                 
                 String estadoSiguiente = "";
                 
-                // Verifica que el estado S# no haya sido creado antes si ya fue creado buscara
+                // Verifica que el estado S# no haya sido creado antes, si ya fue creado buscara
                 // en el hashmap el estado que corresponde a la lista de valores 
                 if (!estadosCreados.containsKey(followsNodos[valores]) && !followsNodos[valores].isEmpty()){
                     

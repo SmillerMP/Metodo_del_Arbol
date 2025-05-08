@@ -9,7 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="metodo_arbol" default="default" basedir=".">
     <description>Builds, tests, and runs the project metodo_arbol.</description>
-    <import file="nbproject/build-impl.xml"/>
+    <import file="nbproject/build-impl.xml" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -70,4 +70,17 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+
+    <target name="-post-jar">
+        <jar destfile="${dist.dir}/metodo_arbol_full.jar"
+            basedir="${build.classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="metodo_arbol.Metodo_arbol" />
+            </manifest>
+            <!-- Esto incluye las librerías externas -->
+            <zipgroupfileset dir="lib" includes="*.jar" />
+        </jar>
+    </target>
+
 </project>
